@@ -1,24 +1,66 @@
-import { Box } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
+import {
+  Box,
+  Text,
+  Input,
+  VStack,
+  Avatar,
+  SimpleGrid,
+  Link,
+} from '@chakra-ui/react';
+import { GetStaticProps } from 'next';
+import NextLink from 'next/link';
+import { Layout, Header, Main, Footer } from '../components/Layout';
+import { Villager } from '../types/villager';
+import { fetchVillagers } from '../utils/data';
 
-export default function Home({ data }) {
+type HomeProps = {
+  data: Villager[];
+};
+
+export default function Home({ data }: HomeProps) {
   return (
-    <Box>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </Box>
+    <Layout>
+      <Header>
+        <Input
+          placeholder='Find a villager'
+          size='lg'
+          maxW={700}
+          color='white'
+        />
+      </Header>
+      <Main>
+        <SimpleGrid minChildWidth='200px' spacing={3} justifyItems='center'>
+          {data.map((villager) => {
+            const key = `${villager.name}_${villager.species}`;
+
+            return (
+              <VStack
+                key={key}
+                border='dashed'
+                borderColor='green.200'
+                borderWidth={3}
+                w={200}
+                h={200}
+                justifyContent='center'
+              >
+                <Avatar src={villager.image_url} />
+                <NextLink href={`/villagers/${encodeURIComponent(key)}`}>
+                  <Link>{villager.name}</Link>
+                </NextLink>
+              </VStack>
+            );
+          })}
+        </SimpleGrid>
+      </Main>
+      <Footer>some footer content</Footer>
+    </Layout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const requestHeaders: HeadersInit = new Headers();
-  requestHeaders.set('X-API-KEY', process.env.NOOKIPEDIA_KEY);
-  requestHeaders.set('Accept-Version', '1.0.0');
+export const getStaticProps: GetStaticProps = async (context) => {
+  // filter by name, species, personality type
 
-  const f = await fetch('https://api.nookipedia.com/nh/bugs/grasshopper', {
-    headers: requestHeaders,
-  });
-  const data = await f.json();
-  console.log(data);
+  const data: Villager[] = await fetchVillagers();
   return {
     props: { data },
   };
