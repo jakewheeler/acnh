@@ -1,4 +1,5 @@
-import { Box, VStack, Text } from '@chakra-ui/react';
+import { Box, Link, VStack, Text } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 type Props = {
   children?: React.ReactNode;
@@ -23,7 +24,9 @@ export function Header({ children }: Props) {
         padding={2}
         alignItems='flex-start'
       >
-        <Text color='white'>Animal Crossing Villagers</Text>
+        <NextLink href='/'>
+          <Link color='white'>Animal Crossing Villagers</Link>
+        </NextLink>
         {children}
       </VStack>
     </Box>
@@ -32,7 +35,7 @@ export function Header({ children }: Props) {
 
 export function Main({ children }: Props) {
   return (
-    <Box as='main' bgColor='green.100' p={5} h='100vh'>
+    <Box as='main' bgColor='green.100' p={5}>
       {children}
     </Box>
   );
