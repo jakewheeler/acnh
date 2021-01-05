@@ -1,14 +1,6 @@
-import {
-  VStack,
-  Badge,
-  Image,
-  Heading,
-  HStack,
-  Text,
-  Stack,
-} from '@chakra-ui/react';
+import { VStack, Badge, Image, Heading, HStack, Text } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { Layout, Header, Main } from '../../components/Layout';
+import { Layout, Header, Main, Footer } from '../../components/Layout';
 import { Villager } from '../../types/villager';
 import { fetchVillager, fetchVillagers } from '../../utils/data';
 
@@ -42,7 +34,7 @@ export default function VillagerPage({ villager }: Props) {
           <Heading as='h1' mb={5}>
             {villager.name}
           </Heading>
-          <Image src={villager.image_url} w={200} h={200} mb={5} />
+          <Image src={villager.image_url} w={150} h={200} mb={5} />
           <VStack alignItems='flex-start'>
             <HStack>
               <Badge>Species</Badge>
@@ -85,6 +77,7 @@ export default function VillagerPage({ villager }: Props) {
           </VStack>
         </VStack>
       </Main>
+      <Footer />
     </Layout>
   );
 }

@@ -1,12 +1,4 @@
-import {
-  Input,
-  VStack,
-  SimpleGrid,
-  Link,
-  Image,
-  Text,
-  Flex,
-} from '@chakra-ui/react';
+import { Input, VStack, SimpleGrid, Link, Text, Flex } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 import NextLink from 'next/link';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
@@ -14,6 +6,7 @@ import { Layout, Header, Main, Footer } from '../components/Layout';
 import { Villager } from '../types/villager';
 import { fetchVillagers } from '../utils/data';
 import { debounce } from 'lodash';
+import Image from 'next/image';
 
 type HomeProps = {
   data: Villager[];
@@ -73,7 +66,7 @@ export default function Home({ data }: HomeProps) {
                   h={200}
                   justifyContent='center'
                 >
-                  <Image w={100} h={100} src={villager.image_url} />
+                  <Image width={100} height={100} src={villager.image_url} />
                   <NextLink href={`/villagers/${encodeURIComponent(key)}`}>
                     <Link>{villager.name}</Link>
                   </NextLink>
@@ -87,7 +80,7 @@ export default function Home({ data }: HomeProps) {
           </Flex>
         )}
       </Main>
-      <Footer>some footer content</Footer>
+      <Footer />
     </Layout>
   );
 }

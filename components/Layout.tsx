@@ -1,16 +1,21 @@
-import { Box, Link, VStack, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Link,
+  VStack,
+  Text,
+  Flex,
+  BoxProps,
+  Heading,
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { forwardRef } from 'react';
 
 type Props = {
   children?: React.ReactNode;
 };
 
 export function Layout({ children }: Props) {
-  return (
-    <Box className='container' h='100vh'>
-      {children}
-    </Box>
-  );
+  return <Box className='container'>{children}</Box>;
 }
 
 export function Header({ children }: Props) {
@@ -25,7 +30,11 @@ export function Header({ children }: Props) {
         alignItems='flex-start'
       >
         <NextLink href='/'>
-          <Link color='white'>Animal Crossing Villagers</Link>
+          <Link color='white'>
+            <Heading as='h1' color='white'>
+              Animal Crossing Villagers
+            </Heading>
+          </Link>
         </NextLink>
         {children}
       </VStack>
@@ -33,17 +42,22 @@ export function Header({ children }: Props) {
   );
 }
 
-export function Main({ children }: Props) {
+type MainProps = Props & BoxProps;
+
+export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
   return (
-    <Box as='main' bgColor='green.100' p={5}>
-      {children}
+    <Box as='main' {...props} ref={ref} bgColor='green.100' p={5}>
+      {props.children}
     </Box>
   );
-}
+});
 
 export function Footer({ children }: Props) {
   return (
     <Box as='footer' bgColor='green.700'>
+      <Flex justifyContent='center'>
+        <Text color='white'>🐱</Text>
+      </Flex>
       {children}
     </Box>
   );
