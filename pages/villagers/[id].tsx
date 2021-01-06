@@ -1,8 +1,20 @@
-import { VStack, Badge, Image, Heading, HStack, Text } from '@chakra-ui/react';
+import {
+  VStack,
+  Badge,
+  Heading,
+  HStack,
+  Text,
+  Box,
+  List,
+  ListItem,
+  UnorderedList,
+} from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Layout, Header, Main, Footer } from '../../components/Layout';
 import { Villager } from '../../types/villager';
 import { fetchVillager, fetchVillagers } from '../../utils/data';
+import Head from 'next/head';
+import Image from 'next/image';
 
 type Props = {
   villager: Villager;
@@ -10,7 +22,7 @@ type Props = {
 
 function getGameName(games: string[]): string[] {
   const map = {
-    DBM: 'Dōbutsu no Mori',
+    DNM: 'Dōbutsu no Mori',
     E_PLUS: 'Dōbutsu no Mori e+',
     WW: 'Wild World',
     AC: 'Animal Crossing Gamecube',
@@ -27,58 +39,81 @@ function getGameName(games: string[]): string[] {
 
 export default function VillagerPage({ villager }: Props) {
   return (
-    <Layout>
-      <Header />
-      <Main>
-        <VStack>
-          <Heading as='h1' mb={5}>
-            {villager.name}
-          </Heading>
-          <Image src={villager.image_url} w={150} h={200} mb={5} />
-          <VStack alignItems='flex-start'>
-            <HStack>
-              <Badge>Species</Badge>
-              <Text>{villager.species}</Text>
-            </HStack>
-            <HStack>
-              <Badge>Gender</Badge>
-              <Text>{villager.gender}</Text>
-            </HStack>
-            <HStack>
-              <Badge>Personality</Badge>
-              <Text>{villager.personality}</Text>
-            </HStack>
-            <HStack>
-              <Badge>Birthday</Badge>
-              <Text>
-                {villager.birthday_month} {villager.birthday_day}
-              </Text>
-            </HStack>
-            <HStack>
-              <Badge>Sign</Badge>
-              <Text>{villager.sign}</Text>
-            </HStack>
-            <HStack>
-              <Badge>Quote</Badge>
-              <Text>"{villager.quote}"</Text>
-            </HStack>
-            <HStack>
-              <Badge>Phrase</Badge>
-              <Text>"{villager.phrase}"</Text>
-            </HStack>
-            <HStack alignItems='flex-start'>
-              <Badge>Found in</Badge>
-              <VStack alignItems='left'>
-                {getGameName(villager.appearances).map((game, i) => (
-                  <Text key={i}>{game}</Text>
-                ))}
+    <Box>
+      <Head>
+        <title>{villager.name}</title>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='Individual villager page' />
+      </Head>
+
+      <Layout>
+        <Header />
+        <Main>
+          <VStack spacing={5}>
+            <Heading as='h1' mb={5} color='green.800'>
+              {villager.name}
+            </Heading>
+            <Image src={villager.image_url} width={150} height={200} />
+            <VStack spacing={5}>
+              <HStack
+                spacing={5}
+                className='top'
+                justifyContent='space-between'
+                alignItems='start'
+              >
+                <VStack>
+                  <Badge>Species</Badge>
+                  <Text>{villager.species}</Text>
+                </VStack>
+                <VStack>
+                  <Badge>Gender</Badge>
+                  <Text>{villager.gender}</Text>
+                </VStack>
+                <VStack>
+                  <Badge>Personality</Badge>
+                  <Text>{villager.personality}</Text>
+                </VStack>
+                <VStack>
+                  <Badge>Birthday</Badge>
+                  <Text>
+                    {villager.birthday_month} {villager.birthday_day}
+                  </Text>
+                </VStack>
+              </HStack>
+              <HStack
+                className='bottom'
+                justifyContent='space-between'
+                alignItems='start'
+              >
+                <VStack>
+                  <Badge>Sign</Badge>
+                  <Text>{villager.sign}</Text>
+                </VStack>
+                <VStack>
+                  <Badge>Phrase</Badge>
+                  <Text>"{villager.phrase}"</Text>
+                </VStack>
+              </HStack>
+              <VStack>
+                <Badge>Quote</Badge>
+                <Text>"{villager.quote}"</Text>
               </VStack>
-            </HStack>
+              <HStack justifyContent='space-between' alignItems='start'>
+                <VStack>
+                  <Badge>Featured in</Badge>
+                  <UnorderedList>
+                    {getGameName(villager.appearances).map((game, i) => (
+                      <ListItem key={i}>{game}</ListItem>
+                    ))}
+                  </UnorderedList>
+                </VStack>
+              </HStack>
+            </VStack>
           </VStack>
-        </VStack>
-      </Main>
-      <Footer />
-    </Layout>
+        </Main>
+        <Footer />
+      </Layout>
+    </Box>
   );
 }
 

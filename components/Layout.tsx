@@ -20,11 +20,10 @@ export function Layout({ children }: Props) {
 
 export function Header({ children }: Props) {
   return (
-    <Box className='container'>
+    <Box as='header' className='header'>
       <VStack
         as='header'
-        h={100}
-        bgColor='green.700'
+        bgColor='green.500'
         spacing={2}
         padding={2}
         alignItems='flex-start'
@@ -46,7 +45,7 @@ type MainProps = Props & BoxProps;
 
 export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
   return (
-    <Box as='main' {...props} ref={ref} bgColor='green.100' p={5}>
+    <Box as='main' {...props} ref={ref} bgColor='green.100' p={20}>
       {props.children}
     </Box>
   );
@@ -54,7 +53,7 @@ export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
 
 export function Footer({ children }: Props) {
   return (
-    <Box as='footer' bgColor='green.700'>
+    <Box as='footer' bgColor='green.400'>
       <Flex justifyContent='center'>
         <Text color='white'>🐱</Text>
       </Flex>
