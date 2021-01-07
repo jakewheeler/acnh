@@ -40,7 +40,7 @@ export default function Home({ data }: HomeProps) {
     setSearchName(e.target.value);
   };
 
-  const debounceCb = useCallback(debounce(search, 300), [searchName]);
+  const debounceCb = useCallback(debounce(search, 100), [searchName]);
 
   useEffect(() => {
     debounceCb();
