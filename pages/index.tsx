@@ -77,11 +77,11 @@ export default function Home({ data }: Props) {
           <Input
             aria-label='Search for a villager'
             placeholder='Search by name'
-            _placeholder={{ color: 'green.100' }}
+            _placeholder={{ color: 'gray.200' }}
             id='searchBox'
             size='lg'
             maxW={700}
-            focusBorderColor='green.700'
+            focusBorderColor='gray.100'
             color='white'
             onChange={(e) => onSearchTextChange(e)}
           />
@@ -89,7 +89,7 @@ export default function Home({ data }: Props) {
             <Select
               placeholder='Any'
               size='lg'
-              focusBorderColor='green.700'
+              focusBorderColor='gray.100'
               color='white'
               onChange={onSpeciesSelect}
               aria-label='Select species type'
@@ -112,15 +112,17 @@ export default function Home({ data }: Props) {
                   <VStack
                     key={key}
                     border='dashed'
-                    borderColor='green.200'
+                    borderColor='green.500'
+                    borderRadius='3%'
                     borderWidth={3}
                     w={200}
                     h={200}
                     justifyContent='center'
+                    bgGradient='linear(orange.300 0%, orange.200 25%, orange.100 50%)'
                   >
                     <Image width={50} height={50} src={villager.image_url} />
                     <NextLink href={`/villagers/${encodeURIComponent(key)}`}>
-                      <Link color='green.900'>{villager.name}</Link>
+                      <Link color='gray.900'>{villager.name}</Link>
                     </NextLink>
                   </VStack>
                 );
@@ -128,7 +130,9 @@ export default function Home({ data }: Props) {
             </SimpleGrid>
           ) : (
             <Flex justifyContent='center'>
-              <Text color='green.900'>No results</Text>
+              <Text color='gray.900' fontSize='2xl'>
+                No results
+              </Text>
             </Flex>
           )}
         </Main>

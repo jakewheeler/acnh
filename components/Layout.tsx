@@ -23,7 +23,7 @@ export function Header({ children }: Props) {
     <Box as='header' className='header'>
       <VStack
         as='header'
-        bgColor='green.500'
+        bgColor='gray.700'
         spacing={2}
         padding={2}
         alignItems='flex-start'
@@ -45,7 +45,7 @@ type MainProps = Props & BoxProps;
 
 export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
   return (
-    <Box as='main' {...props} ref={ref} bgColor='green.100' p={20}>
+    <Box as='main' {...props} ref={ref} bgColor='gray.200' p={20}>
       {props.children}
     </Box>
   );
@@ -53,7 +53,7 @@ export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
 
 export function Footer({ children }: Props) {
   return (
-    <Box as='footer' bgColor='green.400'>
+    <Box as='footer' bgColor='gray.400'>
       <Flex justifyContent='center'>
         <Text color='white'>🐱🐶🦉🐵🐷🐸🐴</Text>
       </Flex>
