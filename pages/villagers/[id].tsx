@@ -5,7 +5,6 @@ import {
   HStack,
   Text,
   Box,
-  List,
   ListItem,
   UnorderedList,
 } from '@chakra-ui/react';
@@ -25,7 +24,7 @@ function getGameName(games: string[]): string[] {
     DNM: 'Dōbutsu no Mori',
     E_PLUS: 'Dōbutsu no Mori e+',
     WW: 'Wild World',
-    AC: 'Animal Crossing Gamecube',
+    AC: 'Animal Crossing (GameCube)',
     CF: 'City Folk',
     NL: 'New Leaf',
     WA: 'Welcome Amiibo',
@@ -102,9 +101,11 @@ export default function VillagerPage({ villager }: Props) {
                 <VStack>
                   <Badge>Featured in</Badge>
                   <UnorderedList>
-                    {getGameName(villager.appearances).map((game, i) => (
-                      <ListItem key={i}>{game}</ListItem>
-                    ))}
+                    {getGameName(villager.appearances)
+                      .sort()
+                      .map((game, i) => (
+                        <ListItem key={i}>{game}</ListItem>
+                      ))}
                   </UnorderedList>
                 </VStack>
               </HStack>

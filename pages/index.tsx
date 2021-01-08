@@ -6,46 +6,64 @@ import {
   Text,
   Flex,
   Box,
+  HStack,
+  Select,
 } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 import NextLink from 'next/link';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Layout, Header, Main, Footer } from '../components/Layout';
 import { Villager } from '../types/villager';
 import { fetchVillagers } from '../utils/data';
-import { debounce } from 'lodash';
 import Image from 'next/image';
 import Head from 'next/head';
 
-type HomeProps = {
-  data: Villager[];
+type Props = {
+  data: {
+    villagers: Villager[];
+    speciesTypes: string[];
+  };
 };
 
-export default function Home({ data }: HomeProps) {
-  const [filteredData, setFilteredData] = useState(data);
-  const [searchName, setSearchName] = useState('');
+interface Filter {
+  name: string;
+  species: string;
+}
 
-  const search = () => {
-    if (searchName !== '') {
-      const filtered = data.filter((villager) =>
-        villager.name.toLowerCase().includes(searchName.toLowerCase())
+export default function Home({ data }: Props) {
+  const { villagers, speciesTypes } = data;
+  const [filteredVillagers, setFilteredVillagers] = useState(villagers);
+
+  const [filter, setFilter] = useState<Filter>({ name: '', species: '' });
+
+  console.log(filter);
+
+  const onSearchTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter({ ...filter, name: e.target.value });
+    applyFilter(villagers, { ...filter, name: e.target.value });
+  };
+
+  const onSpeciesSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setFilter({ ...filter, species: e.target.value });
+    applyFilter(villagers, { ...filter, species: e.target.value });
+  };
+
+  const applyFilter = (data: Villager[], filter: Filter) => {
+    let initialData = data;
+    if (filter.name !== '') {
+      initialData = initialData.filter((villager) =>
+        villager.name.toLowerCase().includes(filter.name.toLowerCase())
       );
-      setFilteredData(filtered);
-    } else {
-      setFilteredData(data);
     }
+    if (filter.species !== '') {
+      initialData = initialData.filter(
+        (villager) =>
+          villager.species.toLowerCase() === filter.species.toLowerCase()
+      );
+    }
+
+    setFilteredVillagers(initialData);
   };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchName(e.target.value);
-  };
-
-  const debounceCb = useCallback(debounce(search, 100), [searchName]);
-
-  useEffect(() => {
-    debounceCb();
-    return debounceCb.cancel;
-  }, [searchName, debounceCb]);
 
   return (
     <Box>
@@ -59,18 +77,35 @@ export default function Home({ data }: HomeProps) {
           <Input
             aria-label='Search for a villager'
             placeholder='Search by name'
+            _placeholder={{ color: 'green.100' }}
             id='searchBox'
             size='lg'
             maxW={700}
             focusBorderColor='green.700'
             color='white'
-            onChange={(e) => onChange(e)}
+            onChange={(e) => onSearchTextChange(e)}
           />
+          <HStack>
+            <Select
+              placeholder='Any'
+              size='lg'
+              focusBorderColor='green.700'
+              color='white'
+              onChange={onSpeciesSelect}
+              aria-label='Select species type'
+            >
+              {speciesTypes.map((species) => (
+                <option key={species} value={species}>
+                  {species}
+                </option>
+              ))}
+            </Select>
+          </HStack>
         </Header>
         <Main>
-          {filteredData.length ? (
+          {filteredVillagers.length ? (
             <SimpleGrid minChildWidth='200px' spacing={3} justifyItems='center'>
-              {filteredData.map((villager) => {
+              {filteredVillagers.map((villager) => {
                 const key = `${villager.name}_${villager.species}`;
 
                 return (
@@ -105,9 +140,17 @@ export default function Home({ data }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   // filter by name, species, personality type
-
-  const data: Villager[] = await fetchVillagers();
+  const villagers: Villager[] = await fetchVillagers();
+  const uniqueSpecies = new Set<string>(
+    villagers.map((villager) => villager.species)
+  );
+  const speciesTypes = Array.from(uniqueSpecies).sort();
   return {
-    props: { data },
+    props: {
+      data: {
+        villagers,
+        speciesTypes,
+      },
+    },
   };
 };

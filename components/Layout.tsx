@@ -55,7 +55,7 @@ export function Footer({ children }: Props) {
   return (
     <Box as='footer' bgColor='green.400'>
       <Flex justifyContent='center'>
-        <Text color='white'>🐱</Text>
+        <Text color='white'>🐱🐶🦉🐵🐷🐸🐴</Text>
       </Flex>
       {children}
     </Box>
