@@ -36,8 +36,6 @@ export default function Home({ data }: Props) {
 
   const [filter, setFilter] = useState<Filter>({ name: '', species: '' });
 
-  console.log(filter);
-
   const onSearchTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilter({ ...filter, name: e.target.value });
     applyFilter(villagers, { ...filter, name: e.target.value });
