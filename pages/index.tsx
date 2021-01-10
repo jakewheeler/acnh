@@ -88,7 +88,6 @@ export default function Home({ data }: Props) {
               placeholder='Any'
               size='lg'
               focusBorderColor='gray.100'
-              color='white'
               onChange={onSpeciesSelect}
               aria-label='Select species type'
             >

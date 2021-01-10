@@ -8,6 +8,10 @@ const theme = extendTheme({
       },
     },
   },
+  config: {
+    useSystemColorMode: false,
+    initialColorMode: 'dark',
+  },
 });
 
 function MyApp({ Component, pageProps }) {
