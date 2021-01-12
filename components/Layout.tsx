@@ -45,7 +45,7 @@ type MainProps = Props & BoxProps;
 
 export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
   return (
-    <Box as='main' {...props} ref={ref} bgColor='gray.200' p={20}>
+    <Box as='main' {...props} ref={ref} p={20}>
       {props.children}
     </Box>
   );

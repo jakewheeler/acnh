@@ -47,9 +47,9 @@ export default function VillagerPage({ villager }: Props) {
 
       <Layout>
         <Header />
-        <Main>
-          <VStack spacing={5}>
-            <Heading as='h1' mb={5} color='green.800'>
+        <Main bgColor='gray.600'>
+          <VStack spacing={5} p={5} borderRadius={50}>
+            <Heading as='h1' mb={5}>
               {villager.name}
             </Heading>
             <Image src={villager.image_url} width='100%' height='auto' />

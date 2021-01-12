@@ -8,6 +8,14 @@ const theme = extendTheme({
       },
     },
   },
+  components: {
+    Badge: {
+      defaultProps: {
+        variant: 'outline',
+        colorScheme: 'green',
+      },
+    },
+  },
   config: {
     useSystemColorMode: false,
     initialColorMode: 'dark',

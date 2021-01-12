@@ -109,17 +109,17 @@ export default function Home({ data }: Props) {
                   <VStack
                     key={key}
                     border='dashed'
-                    borderColor='green.500'
+                    borderColor='gray.100'
                     borderRadius='3%'
                     borderWidth={3}
                     w={200}
                     h={200}
                     justifyContent='center'
-                    bgGradient='linear(orange.300 0%, orange.200 25%, orange.100 50%)'
+                    bgColor='gray.600'
                   >
                     <Image width={50} height={50} src={villager.image_url} />
                     <NextLink href={`/villagers/${encodeURIComponent(key)}`}>
-                      <Link color='gray.900'>{villager.name}</Link>
+                      <Link color='white'>{villager.name}</Link>
                     </NextLink>
                   </VStack>
                 );
@@ -127,7 +127,7 @@ export default function Home({ data }: Props) {
             </SimpleGrid>
           ) : (
             <Flex justifyContent='center'>
-              <Text color='gray.900' fontSize='2xl'>
+              <Text color='white' fontSize='2xl'>
                 No results
               </Text>
             </Flex>
