@@ -117,7 +117,12 @@ export default function Home({ data }: Props) {
                     justifyContent='center'
                     bgColor='gray.600'
                   >
-                    <Image width={50} height={50} src={villager.image_url} />
+                    <Image
+                      width={50}
+                      height={50}
+                      src={villager.image_url}
+                      alt={`Image of ${villager.name}`}
+                    />
                     <NextLink href={`/villagers/${encodeURIComponent(key)}`}>
                       <Link color='white'>{villager.name}</Link>
                     </NextLink>

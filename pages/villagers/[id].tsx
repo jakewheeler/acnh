@@ -52,7 +52,7 @@ export default function VillagerPage({ villager }: Props) {
             <Heading as='h1' mb={5}>
               {villager.name}
             </Heading>
-            <Image src={villager.image_url} width='100%' height='auto' />
+            <Image src={villager.image_url} alt={`Image of ${villager.name}`} width='100%' height='auto' />
             <VStack spacing={5}>
               <HStack
                 spacing={5}
