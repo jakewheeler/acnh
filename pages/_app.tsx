@@ -15,6 +15,11 @@ const theme = extendTheme({
         colorScheme: 'green',
       },
     },
+    Text: {
+      defaultProps: {
+        color: 'white',
+      },
+    },
   },
   config: {
     useSystemColorMode: false,

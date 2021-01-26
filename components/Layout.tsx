@@ -15,7 +15,11 @@ type Props = {
 };
 
 export function Layout({ children }: Props) {
-  return <Box className='container'>{children}</Box>;
+  return (
+    <Box position='relative' minH='100vh' className='container'>
+      {children}
+    </Box>
+  );
 }
 
 export function Header({ children }: Props) {
@@ -45,7 +49,7 @@ type MainProps = Props & BoxProps;
 
 export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
   return (
-    <Box as='main' {...props} ref={ref} p={20}>
+    <Box as='main' {...props} ref={ref} p={20} paddingBottom='3rem'>
       {props.children}
     </Box>
   );
@@ -53,9 +57,16 @@ export const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {
 
 export function Footer({ children }: Props) {
   return (
-    <Box as='footer' bgColor='gray.400'>
-      <Flex justifyContent='center'>
-        <Text color='white'>🐱🐶🦉🐵🐷🐸🐴</Text>
+    <Box
+      as='footer'
+      position='absolute'
+      bottom={0}
+      width='100%'
+      bgColor='gray.400'
+      height='2.5rem'
+    >
+      <Flex justifyContent='center' alignItems='center' height='inherit'>
+        🐱🐶🦉🐵🐷🐸🐴
       </Flex>
       {children}
     </Box>

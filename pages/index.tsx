@@ -116,10 +116,11 @@ export default function Home({ data }: Props) {
                     h={200}
                     justifyContent='center'
                     bgColor='gray.600'
+                    p={5}
                   >
                     <Image
-                      width={50}
-                      height={50}
+                      width='100%'
+                      height='auto'
                       src={villager.image_url}
                       alt={`Image of ${villager.name}`}
                     />
@@ -132,7 +133,7 @@ export default function Home({ data }: Props) {
             </SimpleGrid>
           ) : (
             <Flex justifyContent='center'>
-              <Text color='white' fontSize='2xl'>
+              <Text color='black' fontSize='2xl'>
                 No results
               </Text>
             </Flex>
